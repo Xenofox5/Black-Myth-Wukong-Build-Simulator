@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Myth: Wukong Build Simulator</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { display: flex; justify-content: space-around; padding: 20px; }
+        .column { width: 45%; }
+        h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Black Myth: Wukong Build Simulator</h2>
+    <div class="container">
+        <div class="column">
+            <h3>Select Weapon</h3>
+            <select id="weapon" onchange="updateStats()">
+                <option value="">-- Choose a Weapon --</option>
+                <option value="willow-wood-staff">Willow Wood Staff</option>
+                <option value="bronze-cloud-staff">Bronze Cloud Staff</option>
+                <option value="twin-serpents-staff">Twin Serpents Staff</option>
+                <option value="wind-bear-staff">Wind Bear Staff</option>
+                <option value="loongwreathe-staff">Loongwreathe Staff</option>
+                <option value="rat-sage-staff">Rat Sage Staff</option>
+                <option value="cloud-patterned-stone-staff">Cloud-Patterned Stone Staff</option>
+                <option value="kang-jin-staff">Kang-Jin Staff</option>
+                <option value="golden-loong-staff">Golden Loong Staff</option>
+                <option value="chu-bai-spear">Chu-Bai Spear</option>
+                <option value="spikeshaft-staff">Spikeshaft Staff</option>
+                <option value="chitin-staff">Chitin Staff</option>
+                <option value="spider-celestial-staff">Spider Celestial Staff</option>
+                <option value="visionary-centipede-staff">Visionary Centipede Staff</option>
+                <option value="staff-of-blazing-karma">Staff of Blazing Karma</option>
+                <option value="bishui-beast-staff">Bishui Beast Staff</option>
+                <option value="jingubang">Jingubang</option>
+                <option value="tri-point-double-edged-spear">Tri-Point Double-Edged Spear</option>
+                <option value="stormflash-loong-staff">Stormflash Loong Staff</option>
+                <option value="dark-iron-staff">Dark Iron Staff</option>
+                <option value="adept-spine-shooting-fuban-staff">Adept Spine-Shooting Fuban Staff</option>
+            </select>
+
+            <h3>Weapon Stats</h3>
+            <p id="damage">Damage: </p>
+            <p id="critical">Critical Hit Chance: </p>
+            <p id="defense">Defense: </p>
+            <p id="unique-effect">Unique Effect: </p>
+        </div>
+
+        <div class="column">
+            <h3>Main Character Attributes</h3>
+            <p id="health">Health: 300</p>
+            <p id="mana">Mana: 200</p>
+            <p id="stamina">Stamina: 200</p>
+            <p id="stamina-recovery-rate">Stamina Recovery Rate: 50</p>
+            <p id="attack">Attack: 0</p>
+            <p id="defense-stat">Defense: 90</p>
+            <p id="critical-hit-chance">Critical Hit Chance: 0%</p>
+            <p id="critical-hit-damage">Critical Hit Damage: 130%</p>
+            <p id="damage-bonus">Damage Bonus: 0</p>
+            <p id="damage-reduction">Damage Reduction: 0</p>
+            <p id="chill-resistance">Chill Resistance: 0</p>
+            <p id="burn-resistance">Burn Resistance: 0</p>
+            <p id="poison-resistance">Poison Resistance: 0</p>
+            <p id="shock-resistance">Shock Resistance: 0</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
