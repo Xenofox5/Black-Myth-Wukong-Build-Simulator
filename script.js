@@ -127,68 +127,176 @@ const weapons = {
     }
 };
 
-// Character attributes
+const headgear = {
+    'bronze-monkey-mask': {
+        defense: 16,
+        effect: 'Burn Resistance +3',
+        burnResistance: 3
+    },
+    'bull-kings-mask': {
+        defense: 80,
+        effect: 'Grants moderate Focus upon taking damage; if the Destined One is staggered, grants more Focus.',
+        burnResistance: 0
+    },
+    'centipede-hat': {
+        defense: 43,
+        effect: 'None',
+        burnResistance: 0
+    },
+    'earth-spirit-cap': {
+        defense: 26,
+        effect: 'Poison Resistance +15. Slowly loses Health, but massively increases Health recovery when Using Gourd.',
+        poisonResistance: 15
+    },
+    'folk-opera-mask': {
+        defense: 7,
+        effect: 'None',
+        burnResistance: 0
+    },
+    'galeguard-beast-mask': {
+        defense: 18,
+        effect: 'None',
+        burnResistance: 0
+    },
+    'golden-feng-tail-crown': {
+        defense: 60,
+        effect: 'Maximum Mana +30',
+        manaBonus: 30
+    },
+    'golden-mask-of-fury': {
+        defense: 36,
+        effect: 'Upon successful hits from Spirit skills, grants massive Focus upon reverting.',
+        burnResistance: 0
+    },
+    'grey-wolf-mask': {
+        defense: 10,
+        effect: 'Inflicts considerably more Damage Bonus on enemies at critical Health.',
+        burnResistance: 0
+    },
+    'iron-horned-helm': {
+        defense: 32,
+        effect: 'None',
+        burnResistance: 0
+    },
+    'locust-antennae-mask': {
+        defense: 24,
+        effect: 'Considerably increases power of all Jump Attacks.',
+        burnResistance: 0
+    },
+    'monastic-insect-hat': {
+        defense: 22,
+        effect: 'None',
+        burnResistance: 0
+    },
+    'non-pure-broken-mask': {
+        defense: 40,
+        effect: 'None',
+        burnResistance: 0
+    },
+    'pilgrim-headband': {
+        defense: 8,
+        effect: 'Allows using the gourd while Sprinting.',
+        burnResistance: 0
+    },
+    'see-no-evil': {
+        defense: 25,
+        effect: 'More easily triggers Perfect Dodge.',
+        burnResistance: 0
+    },
+    'skull-of-turtle-treasure': {
+        defense: 30,
+        effect: 'Moderately increases the chance of obtaining materials upon killing an enemy.',
+        burnResistance: 0
+    },
+    'snout-mask': {
+        defense: 17,
+        effect: 'For a short duration after using the gourd, moderately increases Attack.',
+        burnResistance: 0
+    },
+    'yaksha-mask-of-outrage': {
+        defense: 47,
+        effect: 'Significantly increases Attack when Health is low.',
+        burnResistance: 0
+    }
+};
+
 let character = {
     health: 300,
     mana: 200,
     stamina: 200,
-    staminaRecovery: 50,
+    staminaRecoveryRate: 50,
     attack: 0,
     defense: 90,
     criticalHitChance: 0,
     criticalHitDamage: 130,
-    damageBonus: 0,
-    damageReduction: 0,
-    chillResistance: 0,
     burnResistance: 0,
-    poisonResistance: 0,
-    shockResistance: 0,
+    poisonResistance: 0
 };
 
-// Update stats when a weapon is selected
+// Function to update stats for both weapon and headgear
 function updateStats() {
-    const weaponSelect = document.getElementById('weapon');
-    const selectedWeapon = weaponSelect.value;
+    const weaponSelect = document.getElementById('weapon').value;
+    const headgearSelect = document.getElementById('headgear').value;
+    resetStats();  // Resets to base character stats before applying new gear
 
-    // Reset character attributes
-    character.attack = 0; // Reset to base value
-    character.criticalHitChance = 0; // Reset to base value
-    character.defense = 0; // Reset to base value
-
-    if (selectedWeapon) {
-        const weaponStats = weapons[selectedWeapon];
-
-        // Update character stats based on weapon stats
-        character.attack += weaponStats.damage; // Add weapon damage to character's attack
-        character.criticalHitChance += weaponStats.critical; // Add weapon critical to character's critical chance
-        character.defense += weaponStats.defense; // Add weapon defense to character's defense
-
-        // Display weapon stats
-        document.getElementById('damage').innerText = `Damage: ${character.attack}`;
-        document.getElementById('critical').innerText = `Critical Hit Chance: ${character.criticalHitChance}%`;
-        document.getElementById('defense').innerText = `Defense: ${character.defense}`;
-        document.getElementById('unique-effect').innerText = `Unique Effect: ${weaponStats.effect}`;
-    } else {
-        document.getElementById('damage').innerText = 'Damage: ';
-        document.getElementById('critical').innerText = 'Critical Hit Chance: ';
-        document.getElementById('defense').innerText = 'Defense: ';
-        document.getElementById('unique-effect').innerText = 'Unique Effect: ';
+    // Clear weapon stats if no weapon is selected
+    if (!weaponSelect) {
+        document.getElementById('weapon-attack').innerText = `Weapon Attack:`; // Clear attack
+        document.getElementById('weapon-defense').innerText = `Weapon Defense:`; // Clear defense
+        document.getElementById('weapon-critical').innerText = `Weapon Critical Hit Chance:`; // Clear critical hit chance
+        document.getElementById('weapon-effect').innerText = `Weapon Unique Effect:`; // Clear unique effect
+    } else if (weapons[weaponSelect]) {
+        const weaponStats = weapons[weaponSelect];
+        character.attack += weaponStats.damage;
+        character.criticalHitChance += weaponStats.critical;
+        character.defense += weaponStats.defense;
+        document.getElementById('weapon-attack').innerText = `Attack: ${weaponStats.damage}`;
+        document.getElementById('weapon-defense').innerText = `Defense: ${weaponStats.defense}`;
+        document.getElementById('weapon-critical').innerText = `Critical Hit Chance: ${weaponStats.critical}%`;
+        document.getElementById('weapon-effect').innerText = `Unique Effect: ${weaponStats.effect}`;
     }
 
-    // Update character attributes display
-    document.getElementById('health').innerText = `Health: ${character.health}`;
-    document.getElementById('mana').innerText = `Mana: ${character.mana}`;
-    document.getElementById('stamina').innerText = `Stamina: ${character.stamina}`;
-    document.getElementById('stamina-recovery-rate').innerText = `Stamina Recovery Rate: ${character.staminaRecovery}`;
+    // Update headgear stats if headgear is selected
+    if (!headgearSelect) {
+        document.getElementById('headgear-defense').innerText = `Headgear Defense:`; // Clear headgear defense
+        document.getElementById('headgear-effect').innerText = `Headgear Unique Effect:`; // Clear headgear unique effect
+    } else if (headgear[headgearSelect]) {
+        const headgearStats = headgear[headgearSelect];
+        character.defense += headgearStats.defense;
+        character.burnResistance += headgearStats.burnResistance || 0;
+        character.poisonResistance += headgearStats.poisonResistance || 0;
+        document.getElementById('headgear-defense').innerText = `Defense: ${headgearStats.defense}`;
+        document.getElementById('headgear-effect').innerText = `Unique Effect: ${headgearStats.effect}`;
+    }
+
+    updateCharacterStats();  // Apply combined stats to character display
+}
+
+// Function to reset all character stats
+function resetStats() {
+    character = {
+        health: 300,
+        mana: 200,
+        stamina: 200,
+        staminaRecoveryRate: 50,
+        attack: 0,
+        defense: 90,
+        criticalHitChance: 0,
+        criticalHitDamage: 130,
+        burnResistance: 0,
+        poisonResistance: 0
+    };
+}
+
+// Function to update character stats display
+function updateCharacterStats() {
     document.getElementById('attack').innerText = `Attack: ${character.attack}`;
     document.getElementById('defense-stat').innerText = `Defense: ${character.defense}`;
     document.getElementById('critical-hit-chance').innerText = `Critical Hit Chance: ${character.criticalHitChance}%`;
-    document.getElementById('critical-hit-damage').innerText = `Critical Hit Damage: ${character.criticalHitDamage}%`;
-    document.getElementById('damage-bonus').innerText = `Damage Bonus: ${character.damageBonus}`;
-    document.getElementById('damage-reduction').innerText = `Damage Reduction: ${character.damageReduction}`;
-    document.getElementById('chill-resistance').innerText = `Chill Resistance: ${character.chillResistance}`;
     document.getElementById('burn-resistance').innerText = `Burn Resistance: ${character.burnResistance}`;
     document.getElementById('poison-resistance').innerText = `Poison Resistance: ${character.poisonResistance}`;
-    document.getElementById('shock-resistance').innerText = `Shock Resistance: ${character.shockResistance}`;
 }
 
+window.onload = function() {
+    updateStats();  // Call this to initialize the stats
+};
