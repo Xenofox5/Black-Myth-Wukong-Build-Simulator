@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Black Myth: Wukong Build Simulator</title>
-    <link rel="stylesheet" href="styles.css"> <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         body { font-family: Arial, sans-serif; }
         .container { display: flex; justify-content: space-around; padding: 20px; }
@@ -42,11 +42,41 @@
                 <option value="adept-spine-shooting-fuban-staff">Adept Spine-Shooting Fuban Staff</option>
             </select>
 
+            <!-- Weapon stats display right below weapon selection -->
             <h3>Weapon Stats</h3>
-            <p id="damage">Damage: </p>
-            <p id="critical">Critical Hit Chance: </p>
-            <p id="defense">Defense: </p>
-            <p id="unique-effect">Unique Effect: </p>
+            <p id="weapon-attack">Attack: </p>
+            <p id="weapon-defense">Defense: </p>
+            <p id="weapon-critical">Critical Hit Chance: </p>
+            <p id="weapon-effect">Unique Effect: </p>
+            
+
+            <h3>Select Headgear</h3>
+            <select id="headgear" onchange="updateStats()">
+                <!-- Removed the extra "-- Choose Headgear --" option -->
+                <option value="">-- Choose Headgear --</option>
+                <option value="bronze-monkey-mask">Bronze Monkey Mask</option>
+                <option value="bull-kings-mask">Bull King's Mask</option>
+                <option value="centipede-hat">Centipede Hat of Transcendence</option>
+                <option value="earth-spirit-cap">Earth Spirit Cap</option>
+                <option value="folk-opera-mask">Folk Opera Mask</option>
+                <option value="galeguard-beast-mask">Galeguard Beast Mask</option>
+                <option value="golden-feng-tail-crown">Golden Feng-Tail Crown</option>
+                <option value="golden-mask-of-fury">Golden Mask of Fury</option>
+                <option value="grey-wolf-mask">Grey Wolf Mask</option>
+                <option value="iron-horned-helm">Iron Horned Helm</option>
+                <option value="locust-antennae-mask">Locust Antennae Mask</option>
+                <option value="monastic-insect-hat">Monastic Insect Hat</option>
+                <option value="non-pure-broken-mask">Non-Pure Broken Mask</option>
+                <option value="pilgrim-headband">Pilgrim's Headband</option>
+                <option value="see-no-evil">See No Evil</option>
+                <option value="skull-of-turtle-treasure">Skull of Turtle Treasure</option>
+                <option value="snout-mask">Snout Mask</option>
+                <option value="yaksha-mask-of-outrage">Yaksha Mask of Outrage</option>
+            </select>
+            <h3>Headgear Stats</h3>
+            <p id="headgear-defense">Defense: </p>
+            <p id="headgear-effect">Unique Effect: </p>                       
+            
         </div>
 
         <div class="column">
