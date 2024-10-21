@@ -3,13 +3,13 @@ const weapons = {
         damage: 30,
         critical: 0,
         defense: 0,
-        effect: ''
+        effect: 'None'
     },
     'bronze-cloud-staff': {
         damage: 36,
         critical: 2,
         defense: 0,
-        effect: ''
+        effect: 'Upon a successful hit with charged Heavy Attack, each Focus Point cost slightly recovers Health.'
     },
     'twin-serpents-staff': {
         damage: 40,
@@ -27,19 +27,19 @@ const weapons = {
         damage: 70,
         critical: 0,
         defense: 0,
-        effect: 'Moderately increases the Damage dealt by all Pillar Stance moves.'
+        effect: 'Moderately increases the damage dealt by all Pillar Stance moves.'
     },
     'rat-sage-staff': {
         damage: 66,
         critical: 7,
         defense: 0,
-        effect: 'The Fourth Move of Light Attack Combo and Mobile Staff Spin can stir up a whirlwind of sands, increases attack range and Damage.'
+        effect: 'The fourth move of Light Attack Combo and Mobile Staff Spin can stir up a whirlwind of sands, increases attack range and Damage.'
     },
     'cloud-patterned-stone-staff': {
         damage: 60,
         critical: 0,
         defense: 30,
-        effect: 'Moderately increases the Damage executed by charged Smash Heavy Attacks.'
+        effect: 'Defense +30; moderately increases the damage executed by charged Smash Heavy Attacks.'
     },
     'kang-jin-staff': {
         damage: 70,
@@ -51,13 +51,13 @@ const weapons = {
         damage: 108,
         critical: 0,
         defense: 0,
-        effect: 'Moderately increases the Damage dealt by all Pillar Stance moves. A loong can be summoned to execute Thunder at the enemy at Pillar Stance Heavy Attacks that cost 3 or 4 Focus Points.'
+        effect: 'Moderately increases the damage dealt by all Pillar Stance moves. A loong can be summoned to execute Thunder at the enemy at Pillar Stance Heavy Attacks that cost 3 or 4 Focus Points.'
     },
     'chu-bai-spear': {
         damage: 75,
         critical: 0,
         defense: 0,
-        effect: 'Integrate spear techniques into Light Attack Combo and increase the Damage dealt by Thrust Stance moves.'
+        effect: 'Integrate spear techniques into Light Attack Combo and increases the Damage dealt by Thrust Stance moves.'
     },
     'spikeshaft-staff': {
         damage: 80,
@@ -87,13 +87,13 @@ const weapons = {
         damage: 100,
         critical: 0,
         defense: 40,
-        effect: 'Charged Heavy Attacks in Smash Stance that cost over 3 Focus Points inflict a bursting lava effect on the ground.'
+        effect: 'Defense +40; Burn Resistance +10; charged Heavy Attacks in Smash Stance that cost over 3 Focus Points inflict a bursting lava effect on the ground.'
     },
     'bishui-beast-staff': {
         damage: 105,
         critical: 10,
         defense: 0,
-        effect: ''
+        effect: 'None'
     },
     'jingubang': {
         damage: 135,
@@ -105,7 +105,7 @@ const weapons = {
         damage: 135,
         critical: 6,
         defense: 0,
-        effect: 'Integrate spear techniques into Light Attack Combo and increases the Damage dealt by Thrust Stance moves; Upon performing Forceful Thrust shoots swords from the staff to attack.'
+        effect: 'Integrate spear techniques into Light Attack Combo and increases the Damage dealt by Thrust Stance moves; upon performing Forceful Thrust shoots swords from the staff to attack.'
     },
     'stormflash-loong-staff': {
         damage: 140,
@@ -117,7 +117,7 @@ const weapons = {
         damage: 110,
         critical: 0,
         defense: 0,
-        effect: 'Considerably increases attack based on defense.'
+        effect: 'Chill Resistance +5; Burn Resistance +5; considerably increases attack based on defense.'
     },
     'adept-spine-shooting-fuban-staff': {
         damage: 120,
@@ -221,18 +221,19 @@ const headgear = {
 };
 
 let character = {
-    health: 300,
-    mana: 200,
-    stamina: 200,
-    staminaRecoveryRate: 50,
-    attack: 0,
-    defense: 90,
-    criticalHitChance: 0,
-    criticalHitDamage: 130,
-    burnResistance: 0,
-    poisonResistance: 0
+    health: 300,                   // The character's health points
+    mana: 200,                     // The character's mana points
+    stamina: 200,                  // The character's stamina points
+    staminaRecoveryRate: 50,       // The rate at which stamina recovers
+    attack: 0,                     // The character's attack power
+    defense: 90,                   // The character's defense rating
+    criticalHitChance: 0,          // The chance of landing a critical hit (percentage)
+    criticalHitDamage: 130,        // The damage multiplier for critical hits
+    burnResistance: 0,             // Resistance to burn damage
+    poisonResistance: 0,            // Resistance to poison damage
+    chillResistance: 0,             // Resistance to chill effects
+    shockResistance: 0              // Resistance to shock effects
 };
-
 // Function to update stats for both weapon and headgear
 function updateStats() {
     const weaponSelect = document.getElementById('weapon').value;
@@ -250,6 +251,15 @@ function updateStats() {
         character.attack += weaponStats.damage;
         character.criticalHitChance += weaponStats.critical;
         character.defense += weaponStats.defense;
+
+        // Update resistances based on weapon
+        if (weaponSelect === 'staff-of-blazing-karma') {
+            character.burnResistance += 10; // Burn Resistance
+        } else if (weaponSelect === 'dark-iron-staff') {
+            character.chillResistance += 5; // Chill Resistance
+            character.burnResistance += 5;  // Burn Resistance
+        }
+
         document.getElementById('weapon-attack').innerText = `Attack: ${weaponStats.damage}`;
         document.getElementById('weapon-defense').innerText = `Defense: ${weaponStats.defense}`;
         document.getElementById('weapon-critical').innerText = `Critical Hit Chance: ${weaponStats.critical}%`;
@@ -283,8 +293,10 @@ function resetStats() {
         defense: 90,
         criticalHitChance: 0,
         criticalHitDamage: 130,
-        burnResistance: 0,
-        poisonResistance: 0
+        burnResistance: 0,    // Burn resistance attribute
+        poisonResistance: 0,   // Poison resistance attribute
+        chillResistance: 0     // Chill resistance attribute
+        
     };
 }
 
@@ -295,6 +307,7 @@ function updateCharacterStats() {
     document.getElementById('critical-hit-chance').innerText = `Critical Hit Chance: ${character.criticalHitChance}%`;
     document.getElementById('burn-resistance').innerText = `Burn Resistance: ${character.burnResistance}`;
     document.getElementById('poison-resistance').innerText = `Poison Resistance: ${character.poisonResistance}`;
+    document.getElementById('chill-resistance').innerText = `Chill Resistance: ${character.chillResistance}`; // Add this line for chill resistance
 }
 
 window.onload = function() {
