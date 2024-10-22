@@ -220,6 +220,150 @@ const headgear = {
     }
 };
 
+const chestArmor = {
+    'bronze-brocade-battlerobe': {
+        defense: 29,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'bull-kings-armor': {
+        defense: 160,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'centipede-qiang-jin-armor': {
+        defense: 86,
+        effect: 'For a short duration after defeating an enemy, moderately increases Attack.',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'ebongold-silk-robe': {
+        defense: 31,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'embroidered-shirt-of-outrage': {
+        defense: 94,
+        effect: 'Burn Resistance +5',
+        burnResistance: 5,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'folk-opera-almsgiving-armor': {
+        defense: 14,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'galeguard-beastmaw-armor': {
+        defense: 35,
+        effect: 'Shock Resistance +4',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+        shockResistance: 4,
+    },
+    'ginseng-cape': {
+        defense: 48,
+        effect: 'Chill Resistance +8. For a short duration after using the gourd, moderately increases Maximum Stamina.',
+        burnResistance: 0,
+        chillResistance: 8,
+        poisonResistance: 0,
+    },
+    'gold-suozi-armor': {
+        defense: 120,
+        effect: 'Maximum Health +30',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'gold-suozi-armor-common': {
+        defense: 40,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'golden-embroidered-shirt': {
+        defense: 72,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'iron-tough-armor': {
+        defense: 65,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'loongscale-battlerobe': {
+        defense: 53,
+        effect: 'Vengeful Mirage will inflict Thunder Bane.',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'non-pure-armor-of-coiling-loong': {
+        defense: 79,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'ochre-battlerobe': {
+        defense: 48,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'pilgrim-armor': {
+        defense: 16,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'serpentscale-battlerobe': {
+        defense: 18,
+        effect: 'When Health is low, slowly recovers a small amount of Health; if in water, the effect is enhanced.',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'tiger-hide-loincloth': {
+        defense: 5,
+        effect: 'None',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    },
+    'venomous-sting-insect-armor': {
+        defense: 72,
+        effect: 'Poison Resistance +7. Considerable increase Damage dealt by all Poison-inflicting attacks.',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 7,
+    },
+    'yin-yang-daoist-robe': {
+        defense: 36,
+        effect: 'When Health is above half, the Destined One is in Yang state, which moderately reduces damage taken, but disables Critical Hits; when Health is below half, the Destined One shifts to Yin state, which massively increases Critical Hit Chance but massively increases damage taken.',
+        burnResistance: 0,
+        chillResistance: 0,
+        poisonResistance: 0,
+    }
+};
+
 let character = {
     health: 300,                   // The character's health points
     mana: 200,                     // The character's mana points
@@ -234,10 +378,11 @@ let character = {
     chillResistance: 0,             // Resistance to chill effects
     shockResistance: 0              // Resistance to shock effects
 };
-// Function to update stats for both weapon and headgear
+// Function to update stats for weapon, headgear, and chest armor
 function updateStats() {
     const weaponSelect = document.getElementById('weapon').value;
     const headgearSelect = document.getElementById('headgear').value;
+    const chestArmorSelect = document.getElementById('chest-armor').value; // Add this line
     resetStats();  // Resets to base character stats before applying new gear
 
     // Clear weapon stats if no weapon is selected
@@ -279,6 +424,21 @@ function updateStats() {
         document.getElementById('headgear-effect').innerText = `Unique Effect: ${headgearStats.effect}`;
     }
 
+    // Update chest armor stats if chest armor is selected
+    if (!chestArmorSelect) {
+        document.getElementById('chest-defense').innerText = `Chest Armor Defense:`; // Clear chest armor defense
+        document.getElementById('chest-effect').innerText = `Chest Armor Unique Effect:`; // Clear chest armor unique effect
+    } else if (chestArmor[chestArmorSelect]) {
+        const chestStats = chestArmor[chestArmorSelect];
+        character.defense += chestStats.defense;
+        character.burnResistance += chestStats.burnResistance || 0;
+        character.poisonResistance += chestStats.poisonResistance || 0;
+        character.chillResistance += chestStats.chillResistance || 0; 
+        character.shockResistance += chestStats.shockResistance || 0; 
+        document.getElementById('chest-defense').innerText = `Defense: ${chestStats.defense}`;
+        document.getElementById('chest-effect').innerText = `Unique Effect: ${chestStats.effect}`;
+    }
+
     updateCharacterStats();  // Apply combined stats to character display
 }
 
@@ -295,7 +455,8 @@ function resetStats() {
         criticalHitDamage: 130,
         burnResistance: 0,    // Burn resistance attribute
         poisonResistance: 0,   // Poison resistance attribute
-        chillResistance: 0     // Chill resistance attribute
+        chillResistance: 0,     // Chill resistance attribute
+        shockResistance: 0 
         
     };
 }
@@ -307,7 +468,8 @@ function updateCharacterStats() {
     document.getElementById('critical-hit-chance').innerText = `Critical Hit Chance: ${character.criticalHitChance}%`;
     document.getElementById('burn-resistance').innerText = `Burn Resistance: ${character.burnResistance}`;
     document.getElementById('poison-resistance').innerText = `Poison Resistance: ${character.poisonResistance}`;
-    document.getElementById('chill-resistance').innerText = `Chill Resistance: ${character.chillResistance}`; // Add this line for chill resistance
+    document.getElementById('chill-resistance').innerText = `Chill Resistance: ${character.chillResistance}`; 
+    document.getElementById('shock-resistance').innerText = `Shock Resistance: ${character.shockResistance}`; 
 }
 
 window.onload = function() {
