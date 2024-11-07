@@ -1,6 +1,6 @@
 # Black-Myth-Wukong-Build-Simulator v0.3
 
-This is just a simple test, nothing serious. I plan on working on this as a side hobby over the course of a few weeks.
+This is just a simple test, nothing serious. I plan on working on this as a side hobby til December.
 
 Version 0.1 (20/10/2024):
 Added weapon selection and attributes
