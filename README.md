@@ -1,5 +1,7 @@
 # Black-Myth-Wukong-Build-Simulator v0.3
 
+**No Longer Updated!**
+
 This is just a simple test, nothing serious. I originally planned on working on this as a side hobby but lost motivation.
 
 Version 0.1 (20/10/2024):
